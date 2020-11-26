@@ -1,15 +1,12 @@
 {
-  "name": "micro-node",
+  "name": "order-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/app.js",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^14.14.9",
     "koa": "^2.13.0",
-    "koa-body": "^4.2.0",
-    "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
-    "mongoose": "^5.10.15",
+    "mongoose": "^5.10.16",
     "nodemon": "^2.0.6",
     "seneca": "^3.22.0",
     "seneca-web": "^2.2.1",
