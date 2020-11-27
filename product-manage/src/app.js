@@ -11,7 +11,8 @@ seneca
     context: Router(),
     adapter: require("seneca-web-adapter-koa2"),
   })
-  .use("./modules/products");
+  .use("./modules/products")
+  .listen(4001);
 
 seneca.ready(() => {
   seneca.act("role:web", {
@@ -29,7 +30,7 @@ seneca.ready(() => {
   });
 
   app.use(seneca.export("web/context")().routes());
-  app.listen(3001, () => {
-    console.log("shop manage listen on port 3001");
+  app.listen(4001, () => {
+    console.log("shop manage listen on port 4001");
   });
 });

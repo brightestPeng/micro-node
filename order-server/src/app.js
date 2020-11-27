@@ -11,7 +11,8 @@ seneca
     context: Router(),
     adapter: require("seneca-web-adapter-koa2"),
   })
-  .use("./modules/orders");
+  .use("./modules/orders")
+  .listen(4003);
 
 seneca.ready(() => {
   console.log("ready");
@@ -29,7 +30,7 @@ seneca.ready(() => {
   });
 
   app.use(seneca.export("web/context")().routes());
-  app.listen(3003, () => {
-    console.log("order server listen on port 3003");
+  app.listen(4003, () => {
+    console.log("order server listen on port 4003");
   });
 });

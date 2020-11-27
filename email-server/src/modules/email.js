@@ -24,7 +24,7 @@ const plugin = function (options) {
       subject: msg.subject,
       // 可以发送text或者html格式,2选1
       // text: 'Hello world?', // 纯文本
-      text: msg.text,
+      html: msg.html,
     };
 
     transporter.sendMail(mailOpt, (error, info) => {

@@ -8,10 +8,10 @@ const plugins = function (options) {
   seneca.add({ area: "products", action: "add" }, async ({ args }, reply) => {
     const product = await products.find({ name: args.body.name });
     if (product.length > 0) {
-      reply({ code: -1, msg: "商品已存在" });
+      reply(null, { code: -1, msg: "商品已存在" });
     } else {
       const result = await products.add(args.body);
-      reply({ code: 1, msg: "添加成功!" });
+      reply(null, { code: 1, msg: "添加成功!" });
     }
   });
 
@@ -21,9 +21,9 @@ const plugins = function (options) {
     async ({ args }, reply) => {
       const { deletedCount } = await products.remove({ name: args.query.name });
       if (deletedCount >= 1) {
-        reply({ code: 1, msg: "删除成功!" });
+        reply(null, { code: 1, msg: "删除成功!" });
       } else {
-        reply({ code: -1, msg: "商品不存在，删除失败" });
+        reply(null, { code: -1, msg: "商品不存在，删除失败" });
       }
     }
   );
@@ -39,9 +39,9 @@ const plugins = function (options) {
       });
 
       if (nModified >= 1) {
-        reply({ code: 1, msg: "修改成功!" });
+        reply(null, { code: 1, msg: "修改成功!" });
       } else {
-        reply({ code: -1, msg: "商品不存在，修改失败" });
+        reply(null, { code: -1, msg: "商品不存在，修改失败" });
       }
     }
   );
@@ -49,13 +49,18 @@ const plugins = function (options) {
   //获取所有商品列表
   seneca.add({ area: "products", action: "queryAll" }, async (msg, reply) => {
     const list = await products.find();
-    reply({ code: 1, msg: "查询成功", data: list });
+    reply(null, { code: 1, msg: "查询成功", data: list });
   });
 
   //根据类别获取商品
   seneca.add({ area: "products", action: "query" }, async ({ args }, reply) => {
+    if (args.query.id) {
+      args.query._id = args.query.id;
+      delete args.query.id;
+    }
+
     const list = await products.find(args.query);
-    reply({ code: 1, msg: "查询成功", data: list });
+    reply(null, { code: 1, msg: "查询成功", data: list });
   });
 };
 
